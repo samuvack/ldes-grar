@@ -55,6 +55,18 @@ all info of parcels:
 
 all info of building units:
 
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX buildingunit: <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid>
+
+SELECT * WHERE {
+  ?s <gebouw:adres> ?adres .
+  ?output <http://www.iana.org/assignments/relation/self> ?api_output .
+  ?output <http://www.w3.org/ns/prov#generatedAtTime> ?generatedAtTime .
+   ?output <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?id .
+    ?output <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
+}
+```
 
 
 
