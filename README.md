@@ -5,7 +5,7 @@
 
 ## Start Docker of Apache Nifi and GraphDB
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 ## Load data flow in Apache Nifi
