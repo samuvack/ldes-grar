@@ -1,3 +1,10 @@
+Proof of Concept
+
+![image](https://user-images.githubusercontent.com/15192194/221877896-3709f480-ea3a-41c8-b3d4-633c71f2db7f.png)
+
+
+
+
 # Apache NiFi SPARQL put processor
 
 A processor that materialises an LDES stream into a triplestore.
@@ -16,5 +23,3 @@ e.g. https://github.com/Informatievlaanderen/VSDS-LDESClient-NifiProcessor/packa
 ```
 docker-compose up
 ```
-
-![image](https://user-images.githubusercontent.com/15192194/221877896-3709f480-ea3a-41c8-b3d4-633c71f2db7f.png)
