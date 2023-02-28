@@ -1,0 +1,52 @@
+version: '3'
+
+volumes:
+  nifi-database-repository:
+  nifi-flowfile-repository:
+  nifi-content-repository:
+  nifi-provenance-repository:
+  nifi-state:
+  nifi-logs:
+  nifi-nars:
+  nifi-conf:
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+
+
+
+services:
+  nifi:
+    image: ghcr.io/informatievlaanderen/ldes-workbench-nifi:20230214T123440 #20221109T103745
+    container_name: nifi-graph
+    restart: unless-stopped
+    ports:
+      # HTTPS
+      - 8443:8443/tcp
+    volumes:
+      - ./nifi-extensions:/opt/nifi/nifi-current/extensions
+    environment:
+      - NIFI_UI_PORT=8443
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=admin123456789
+      - NIFI_WORKFLOW_LISTEN_PORT=9005
+      - NIFI_JVM_HEAP_INIT=8g
+      - NIFI_JVM_HEAP_MAX=8g
+
+
+
+  graphdb:
+    image: ontotext/graphdb:10.0.2
+    container_name: graphdb3
+    ports:
+      # HTTP
+      - 7200:7200
+
+
+
+
+
+
