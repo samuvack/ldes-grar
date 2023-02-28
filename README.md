@@ -38,6 +38,8 @@ Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 
 # Sparql queries
 
+all info of addresses:
+
 ```
 PREFIX adres: <https://data.vlaanderen.be/id/adres/>
 
@@ -45,3 +47,16 @@ select * where {
 	adres:40000681 ?p ?o .
 } limit 100 
 ```
+
+all info of parcels:
+
+
+
+all info of building units:
+
+
+
+
+combined:
+
+
