@@ -10,23 +10,23 @@ docker-compose up --build
 
 ## Load data flow in Apache Nifi
 
-Apache Nifi will run on port 8443:8443/tcp
+Apache Nifi will run on port 8443:8443/tcp\
 https://localhost:8443
 
-Login
-username: admin
-password: admin123456789
+Login\
+username: admin\
+password: admin123456789\
 
-Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:
+Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 ![image](https://user-images.githubusercontent.com/15192194/221881399-d53deae0-7830-4a0c-a143-8784b32893d6.png)
 
 
 
 ## Data in GraphDB
 
-Building units
+### Building units\
 ![image](https://user-images.githubusercontent.com/15192194/221879850-3b89e274-1fe4-439e-8cc2-47477d03ba2a.png)
 
 
-Parcels
+### Parcels\
 ![image](https://user-images.githubusercontent.com/15192194/221880584-8b966eaa-f2c0-4014-9ec5-5691c2ed631d.png)
