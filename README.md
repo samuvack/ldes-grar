@@ -17,7 +17,7 @@ https://localhost:8443
 
 Login \
 username: admin \
-password: admin123456789 \
+password: admin123456789
 
 Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 ![image](https://user-images.githubusercontent.com/15192194/221881399-d53deae0-7830-4a0c-a143-8784b32893d6.png)
