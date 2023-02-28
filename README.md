@@ -1,6 +1,8 @@
 # Proof of Concept
 
-![image](https://user-images.githubusercontent.com/15192194/221877896-3709f480-ea3a-41c8-b3d4-633c71f2db7f.png)
+In this Proof of Concept, an Rest API is developed that makes it possible to harvest information of building units and parcels via its address. The data of building units, parcels and addresses is available as Linked Data Event Streams.
+First, the three Linked Data Event Streams are consumed and inserted into a GraphDB. Hereafter, a Sparql query provides for a linkage between these LDES'es.
+
 
 
 ## Start Docker of Apache Nifi and GraphDB
@@ -19,6 +21,8 @@ password: admin123456789\
 
 Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 ![image](https://user-images.githubusercontent.com/15192194/221881399-d53deae0-7830-4a0c-a143-8784b32893d6.png)
+
+![image](https://user-images.githubusercontent.com/15192194/221877896-3709f480-ea3a-41c8-b3d4-633c71f2db7f.png)
 
 
 
