@@ -30,6 +30,7 @@ Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 
 ### Building units
 ![image](https://user-images.githubusercontent.com/15192194/221879850-3b89e274-1fe4-439e-8cc2-47477d03ba2a.png)
+![image](https://user-images.githubusercontent.com/15192194/221898400-56a46d02-6d84-4c66-9610-63a23af37605.png)
 
 
 ### Parcels
@@ -54,6 +55,18 @@ all info of parcels:
 
 all info of building units:
 
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX buildingunit: <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid>
+
+SELECT * WHERE {
+  ?s <gebouw:adres> ?adres .
+  ?output <http://www.iana.org/assignments/relation/self> ?api_output .
+  ?output <http://www.w3.org/ns/prov#generatedAtTime> ?generatedAtTime .
+   ?output <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?id .
+    ?output <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
+}
+```
 
 
 
