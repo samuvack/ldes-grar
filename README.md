@@ -50,6 +50,17 @@ select * where {
 ```
 
 all info of parcels:
+
+
+```
+select * where { 
+	?perceel <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#Adresseerbaar%20Object> ?adres .
+}
+```
+![image](https://user-images.githubusercontent.com/15192194/222112272-db122f0f-7ad1-41da-aa5f-315bc4a8afc8.png)
+
+
+
 ```
 PREFIX perceel: <https://data.vlaanderen.be/id/perceel/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
