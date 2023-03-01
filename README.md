@@ -49,25 +49,28 @@ select * where {
 } limit 100 
 ```
 
-all info of parcels:
+all info of parcels based on adres:
+
+
 ```
+PREFIX gebouwregister: <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#>
+PREFIX adres: <https://data.vlaanderen.be/id/adres/>
 PREFIX perceel: <https://data.vlaanderen.be/id/perceel/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX ns: <https://data.vlaanderen.be/ns/generiek#>
-PREFIX gebouwenregister: <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#>
 
 select * where { 
-    OPTIONAL {	perceel:45502A0395-00H000 rdf:type ?type .
-   				perceel:45502A0395-00H000 prov:generatedAtTime ?generatedAtTime .
-    			perceel:45502A0395-00H000 ns:lokaleIdentificator ?lokaleIdentificator .
-            	perceel:45502A0395-00H000 ns:naamruimte ?naamruimte .
-    			perceel:45502A0395-00H000 ns:versieIdentificator ?versieIdentificator .
-        		perceel:45502A0395-00H000 gebouwenregister:Perceel%3Astatus ?status .}
+	?perceel gebouwregister:Adresseerbaar%20Object adres:2327687 .
+    OPTIONAL {	?perceel rdf:type ?type .
+      			?perceel prov:generatedAtTime ?generatedAtTime .
+   				?perceel ns:lokaleIdentificator ?lokaleIdentificator .
+            	?perceel ns:naamruimte ?naamruimte .
+    		    ?perceel ns:versieIdentificator ?versieIdentificator .}
+   	#    		?perceel gebouwenregister:Perceel%3Astatus ?status .}
 }
 ```
-output:
-![image](https://user-images.githubusercontent.com/15192194/222111537-8c51808a-a01d-468d-b628-0c5fb398a7ed.png)
+![image](https://user-images.githubusercontent.com/15192194/222114448-bfa79db4-b199-419f-82af-a09234ca1996.png)
 
 
 
@@ -75,28 +78,32 @@ all info of building units:
 
 ```
 PREFIX adres: <https://data.vlaanderen.be/id/adres/>
-PREFIX gebouw: <https://data.vlaanderen.be/id/gebouweenheid/>
+PREFIX gebouw: <https://data.vlaanderen.be/id/?gebouweenheid/>
 PREFIX gebouweenheid: <https://data.vlaanderen.be/ns/gebouw#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-select * where { 
 
-gebouw:11337438 prov:generatedAtTime ?generatedAtTime .
-gebouw:11337438 rdf:type ?type .
-gebouw:11337438 gebouweenheid:Gebouweenheid.geometrie ?geometrie .
-gebouw:11337438 gebouweenheid:Gebouweenheid.status ?status .
-gebouw:11337438 gebouweenheid:functie ?functie .
-gebouw:11337438 generiek:lokaleIdentificator ?lokaleIdentificator .
-gebouw:11337438 generiek:naamruimte ?naamruimte .
-gebouw:11337438 generiek:versieIdentificator ?versieIdentificator .  
-    
+select * where { 
+	?gebouweenheid <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid.adres> <https://data.vlaanderen.be/id/adres/1864311> .
+
+    OPTIONAL{
+    ?gebouweenheid prov:generatedAtTime ?generatedAtTime .
+	?gebouweenheid rdf:type ?type .
+	?gebouweenheid gebouweenheid:Gebouweenheid.geometrie ?geometrie .
+	?gebouweenheid gebouweenheid:Gebouweenheid.status ?status .
+	?gebouweenheid gebouweenheid:functie ?functie .
+	?gebouweenheid generiek:lokaleIdentificator ?lokaleIdentificator .
+	?gebouweenheid generiek:naamruimte ?naamruimte .
+	?gebouweenheid generiek:versieIdentificator ?versieIdentificator .  
+
 }
+}
+
 ```
 output:
-![image](https://user-images.githubusercontent.com/15192194/222107672-f67914a0-f818-43d7-ab96-05a552d8e13c.png)
-
+![image](https://user-images.githubusercontent.com/15192194/222118282-a87550be-1dfc-463a-bcc6-a393d2c3af79.png)
 
 
 
