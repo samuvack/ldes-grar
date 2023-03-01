@@ -78,28 +78,32 @@ all info of building units:
 
 ```
 PREFIX adres: <https://data.vlaanderen.be/id/adres/>
-PREFIX gebouw: <https://data.vlaanderen.be/id/gebouweenheid/>
+PREFIX gebouw: <https://data.vlaanderen.be/id/?gebouweenheid/>
 PREFIX gebouweenheid: <https://data.vlaanderen.be/ns/gebouw#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-select * where { 
 
-gebouw:11337438 prov:generatedAtTime ?generatedAtTime .
-gebouw:11337438 rdf:type ?type .
-gebouw:11337438 gebouweenheid:Gebouweenheid.geometrie ?geometrie .
-gebouw:11337438 gebouweenheid:Gebouweenheid.status ?status .
-gebouw:11337438 gebouweenheid:functie ?functie .
-gebouw:11337438 generiek:lokaleIdentificator ?lokaleIdentificator .
-gebouw:11337438 generiek:naamruimte ?naamruimte .
-gebouw:11337438 generiek:versieIdentificator ?versieIdentificator .  
-    
+select * where { 
+	?gebouweenheid <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid.adres> <https://data.vlaanderen.be/id/adres/1864311> .
+
+    OPTIONAL{
+    ?gebouweenheid prov:generatedAtTime ?generatedAtTime .
+	?gebouweenheid rdf:type ?type .
+	?gebouweenheid gebouweenheid:Gebouweenheid.geometrie ?geometrie .
+	?gebouweenheid gebouweenheid:Gebouweenheid.status ?status .
+	?gebouweenheid gebouweenheid:functie ?functie .
+	?gebouweenheid generiek:lokaleIdentificator ?lokaleIdentificator .
+	?gebouweenheid generiek:naamruimte ?naamruimte .
+	?gebouweenheid generiek:versieIdentificator ?versieIdentificator .  
+
 }
+}
+
 ```
 output:
-![image](https://user-images.githubusercontent.com/15192194/222107672-f67914a0-f818-43d7-ab96-05a552d8e13c.png)
-
+![image](https://user-images.githubusercontent.com/15192194/222118282-a87550be-1dfc-463a-bcc6-a393d2c3af79.png)
 
 
 
