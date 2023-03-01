@@ -67,16 +67,13 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX ns: <https://data.vlaanderen.be/ns/generiek#>
 
-  
-
 select * where { 
 	?perceel gebouwregister:Adresseerbaar%20Object adres:2327687 .
     OPTIONAL {	?perceel rdf:type ?type .
       			?perceel prov:generatedAtTime ?generatedAtTime .
    				?perceel ns:lokaleIdentificator ?lokaleIdentificator .
             	?perceel ns:naamruimte ?naamruimte .
-    		    ?perceel ns:versieIdentificator ?versieIdentificator .
-    			?perceel ?p ?output .}
+    		    ?perceel ns:versieIdentificator ?versieIdentificator .}
    	#    		?perceel gebouwenregister:Perceel%3Astatus ?status .}
 }
 ```
