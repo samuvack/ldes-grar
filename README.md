@@ -66,6 +66,9 @@ select * where {
         		perceel:45502A0395-00H000 gebouwenregister:Perceel%3Astatus ?status .}
 }
 ```
+output:
+![image](https://user-images.githubusercontent.com/15192194/222111537-8c51808a-a01d-468d-b628-0c5fb398a7ed.png)
+
 
 
 all info of building units:
