@@ -50,7 +50,22 @@ select * where {
 ```
 
 all info of parcels:
+```
+PREFIX perceel: <https://data.vlaanderen.be/id/perceel/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX ns: <https://data.vlaanderen.be/ns/generiek#>
+PREFIX gebouwenregister: <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#>
 
+select * where { 
+    OPTIONAL {	perceel:45502A0395-00H000 rdf:type ?type .
+   				perceel:45502A0395-00H000 prov:generatedAtTime ?generatedAtTime .
+    			perceel:45502A0395-00H000 ns:lokaleIdentificator ?lokaleIdentificator .
+            	perceel:45502A0395-00H000 ns:naamruimte ?naamruimte .
+    			perceel:45502A0395-00H000 ns:versieIdentificator ?versieIdentificator .
+        		perceel:45502A0395-00H000 gebouwenregister:Perceel%3Astatus ?status .}
+}
+```
 
 
 all info of building units:
