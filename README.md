@@ -56,15 +56,24 @@ all info of parcels:
 all info of building units:
 
 ```
+PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+PREFIX gebouw: <https://data.vlaanderen.be/id/gebouweenheid/>
+PREFIX gebouweenheid: <https://data.vlaanderen.be/ns/gebouw#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX buildingunit: <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid>
 
-SELECT * WHERE {
-  ?s <gebouw:adres> ?adres .
-  ?output <http://www.iana.org/assignments/relation/self> ?api_output .
-  ?output <http://www.w3.org/ns/prov#generatedAtTime> ?generatedAtTime .
-   ?output <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?id .
-    ?output <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
+select * where { 
+
+gebouw:11337438 prov:generatedAtTime ?generatedAtTime .
+gebouw:11337438 rdf:type ?type .
+gebouw:11337438 gebouweenheid:Gebouweenheid.geometrie ?geometrie .
+gebouw:11337438 gebouweenheid:Gebouweenheid.status ?status .
+gebouw:11337438 gebouweenheid:functie ?functie .
+gebouw:11337438 generiek:lokaleIdentificator ?lokaleIdentificator .
+gebouw:11337438 generiek:naamruimte ?naamruimte .
+gebouw:11337438 generiek:versieIdentificator ?versieIdentificator .  
+    
 }
 ```
 
