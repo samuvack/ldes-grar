@@ -76,6 +76,7 @@ gebouw:11337438 generiek:versieIdentificator ?versieIdentificator .
     
 }
 ```
+output:
 ![image](https://user-images.githubusercontent.com/15192194/222107672-f67914a0-f818-43d7-ab96-05a552d8e13c.png)
 
 
