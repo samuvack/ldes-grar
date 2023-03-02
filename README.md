@@ -39,14 +39,27 @@ Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 
 # Sparql queries
 
-all info of addresses:
+all info of an address:
 
 ```
 PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+prefix generiek:      <https://data.vlaanderen.be/ns/generiek#> 
 
 select * where { 
-	adres:40000681 ?p ?o .
-} limit 100 
+    ?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amsterdamstraat 18, 2000 Antwerpen"@nl .
+	?adres_id <https://data.vlaanderen.be/ns/adres#isVerrijktMet> ?genid .
+    ?adres_id <http://www.w3.org/ns/prov#generatedAtTime> ?output .
+    ?adres_id <https://data.vlaanderen.be/ns/generiek#naamruimte> ?naamruimte .
+    ?adres_id <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?lokaleIdentificator .
+    ?adres_id <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#huisnummer> ?huisnummer .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#positie> ?positie .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> ?heeftGemeentenaam .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftPostinfo> ?heeftPostinfo .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#Adres.status> ?adresstatus .  
+    ?adres_id <https://data.vlaanderen.be/ns/adres#officieelToegekend> ?officieelToegekend .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?heeftStraatnaam .
+} 
 ```
 
 address:
