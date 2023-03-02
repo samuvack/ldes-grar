@@ -66,7 +66,7 @@ sparql.setReturnFormat(RDF)
 # execute the SPARQL query and parse the results into an RDF graph
 results = str(sparql.query().convert())
 data = results.replace("\\r\\n", "\\n")
-data = data.splitlines("\\n")
+#data = results.splitlines("\\r\\n")
 
 print(data)
 #graph = Graph().parse(data=results.serialize(format='turtle'), format='turtle')
