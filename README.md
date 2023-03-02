@@ -42,37 +42,38 @@ Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 all info of an address:
 
 ```
-PREFIX adres: <https://data.vlaanderen.be/id/adres/>
-PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#> 
+PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
 PREFIX locn:          <https://www.w3.org/ns/locn#> 
 PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
+PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 
 select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
-    ?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amsterdamstraat 18, 2000 Antwerpen"@nl .
-	?adres_id <https://data.vlaanderen.be/ns/adres#isVerrijktMet> ?genid .
-    ?adres_id <http://www.w3.org/ns/prov#generatedAtTime> ?generatedAtTime .
-    ?adres_id <https://data.vlaanderen.be/ns/generiek#naamruimte> ?naamruimte .
-    ?adres_id <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?lokaleIdentificator .
-    ?adres_id <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
-    ?adres_id <https://data.vlaanderen.be/ns/adres#huisnummer> ?huisnummer .
-    ?adres_id <https://data.vlaanderen.be/ns/adres#positie> ?genid_positie .
+    ?genid adres:volledigAdres "Amsterdamstraat 18, 2000 Antwerpen"@nl .
+	?adres_id adres:isVerrijktMet ?genid .
+    ?adres_id prov:generatedAtTime ?generatedAtTime .
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id adres:positie ?genid_positie .
     
     ?genid_positie locn:geometry ?genid_locatie .
     ?genid_locatie geosparql:asGML ?locatie .
     
-    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> ?heeftGemeentenaam .
-    ?heeftGemeentenaam <https://data.vlaanderen.be/ns/adres#Gemeentenaam> ?genid_gemeente .
+    ?adres_id adres:heeftGemeentenaam ?heeftGemeentenaam .
+    ?heeftGemeentenaam adres:Gemeentenaam ?genid_gemeente .
     ?genid_gemeente ?p ?gemeente .
     
     
     
-    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftPostinfo> ?heeftPostinfo .
-    ?adres_id <https://data.vlaanderen.be/ns/adres#Adres.status> ?adresstatus .  
-    ?adres_id <https://data.vlaanderen.be/ns/adres#officieelToegekend> ?officieelToegekend .
-    ?adres_id <https://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?heeftStraatnaam .
-    ?heeftStraatnaam <https://data.vlaanderen.be/ns/adres#Straatnaam> ?genid_straat .
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .  
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
+    ?heeftStraatnaam adres:Straatnaam ?genid_straat .
     ?genid_straat ?p ?straat .
-}  
+} 
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
 
