@@ -74,7 +74,7 @@ select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?h
     ?genid_straat ?p ?straat .
 }  
 ```
-![image](https://user-images.githubusercontent.com/15192194/222468625-360e9328-624b-4e0e-83da-75c0ecfba618.png)
+![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
 
 
 address:
