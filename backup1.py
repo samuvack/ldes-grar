@@ -62,42 +62,11 @@ select * where {
 """
     return perceel
 
-def adres(input):
-    adres =   '''
-    PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
-PREFIX locn:          <https://www.w3.org/ns/locn#> 
-PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
-PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
-PREFIX prov: <http://www.w3.org/ns/prov#>
+    
+   
 
-select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
-    ?genid adres:volledigAdres "'''+ str(input) + '''"@nl .
-	?adres_id adres:isVerrijktMet ?genid .
-    ?adres_id prov:generatedAtTime ?generatedAtTime .
-    ?adres_id generiek:naamruimte ?naamruimte .
-    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
-    ?adres_id generiek:versieIdentificator ?versieIdentificator .
-    ?adres_id adres:huisnummer ?huisnummer .
-    ?adres_id adres:positie ?genid_positie .
-    
-    ?genid_positie locn:geometry ?genid_locatie .
-    ?genid_locatie geosparql:asGML ?locatie .
-    
-    ?adres_id adres:heeftGemeentenaam ?heeftGemeentenaam .
-    ?heeftGemeentenaam adres:Gemeentenaam ?genid_gemeente .
-    ?genid_gemeente ?p ?gemeente .
-    
-    
-    
-    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
-    ?adres_id adres:Adres.status ?adresstatus .  
-    ?adres_id adres:officieelToegekend ?officieelToegekend .
-    ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
-    ?heeftStraatnaam adres:Straatnaam ?genid_straat .
-    ?genid_straat ?p ?straat .
-} '''
-    return adres
-    
+
+
 #REST API
 #!/usr/bin/env python3
 
@@ -111,30 +80,8 @@ class S(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        
-        #ADRES INFO
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         input = self.path[1:]
-        # connect to the GraphDB repository using the URL of the SPARQL endpoint
-        sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
-        adres_input = str(adres(input)).replace('%20', ' ')
-        print(adres_input)
-        # set the SPARQL query and response format
-        sparql.setQuery(adres_input)
-        sparql.setReturnFormat(RDF)
-        results = str(sparql.query().convert().decode('latin-1'))
-        print(results)
-        data = results.splitlines()
-        if (len(data)==1):
-            adres_json = ''
-        else :
-            data = dict(zip(data[0].split(","), data[1].split(",")))
-            adres_json = json.dumps(data, indent = 4) 
-            id = data.get('lokaleIdentificator')
-        print(adres_json)
-        
-
-        input = id
         # connect to the GraphDB repository using the URL of the SPARQL endpoint
         sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
         gebouw_input = gebouweenheid(input)
@@ -171,16 +118,13 @@ class S(BaseHTTPRequestHandler):
             json_output = perceel_json
         if (perceel_json == ''):
             json_output = gebouweenheid_json
-        if (perceel_json == '' and gebouweenheid_json == ''):
+        if (perceel_json == '' && gebouweenheid_json == ''):
             json_output = 'Geen gekoppelde informatie van adres en perceel'
         else:
             json_output = perceel_json + ', ' + gebouweenheid_json
         
-        output = adres_json + ', ' + json_output
-        
-
         self._set_response()
-        self.wfile.write("{}".format(output).encode('utf-8'))
+        self.wfile.write("{}".format(json_output).encode('utf-8'))
         
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
