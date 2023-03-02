@@ -50,6 +50,8 @@ select * where {
 ```
 
 address:
+![image](https://user-images.githubusercontent.com/15192194/222463320-c93fbfcb-1bba-42b4-a45a-53e75bef6715.png)
+
 ```
 select * where { 
 	?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amerikalei 152, 2000 Antwerpen"@nl .
