@@ -61,6 +61,8 @@ select * where {
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?heeftStraatnaam .
 } 
 ```
+![image](https://user-images.githubusercontent.com/15192194/222468625-360e9328-624b-4e0e-83da-75c0ecfba618.png)
+
 
 address:
 ![image](https://user-images.githubusercontent.com/15192194/222463320-c93fbfcb-1bba-42b4-a45a-53e75bef6715.png)
