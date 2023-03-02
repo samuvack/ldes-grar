@@ -61,6 +61,10 @@ select * where {
     ?genid_locatie geosparql:asGML ?locatie .
     
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> ?heeftGemeentenaam .
+    ?heeftGemeentenaam <https://data.vlaanderen.be/ns/adres#Gemeentenaam> ?genid_gemeente .
+    ?genid_gemeente ?p ?gemeente .
+    
+    
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftPostinfo> ?heeftPostinfo .
     ?adres_id <https://data.vlaanderen.be/ns/adres#Adres.status> ?adresstatus .  
     ?adres_id <https://data.vlaanderen.be/ns/adres#officieelToegekend> ?officieelToegekend .
