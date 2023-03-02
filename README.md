@@ -43,7 +43,9 @@ all info of an address:
 
 ```
 PREFIX adres: <https://data.vlaanderen.be/id/adres/>
-prefix generiek:      <https://data.vlaanderen.be/ns/generiek#> 
+PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#> 
+PREFIX locn:          <https://www.w3.org/ns/locn#> 
+PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
 
 select * where { 
     ?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amsterdamstraat 18, 2000 Antwerpen"@nl .
@@ -53,7 +55,11 @@ select * where {
     ?adres_id <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?lokaleIdentificator .
     ?adres_id <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
     ?adres_id <https://data.vlaanderen.be/ns/adres#huisnummer> ?huisnummer .
-    ?adres_id <https://data.vlaanderen.be/ns/adres#positie> ?positie .
+    ?adres_id <https://data.vlaanderen.be/ns/adres#positie> ?genid_positie .
+    
+    ?genid_positie locn:geometry ?genid_locatie .
+    ?genid_locatie geosparql:asGML ?locatie .
+    
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> ?heeftGemeentenaam .
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftPostinfo> ?heeftPostinfo .
     ?adres_id <https://data.vlaanderen.be/ns/adres#Adres.status> ?adresstatus .  
