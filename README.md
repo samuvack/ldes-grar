@@ -49,7 +49,16 @@ select * where {
 } limit 100 
 ```
 
-all info of parcels based on adres:
+address:
+```
+select * where { 
+	?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amerikalei 152, 2000 Antwerpen"@nl .
+   
+    
+}
+```
+
+all info of parcels based on addres:
 
 
 ```
