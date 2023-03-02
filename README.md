@@ -47,10 +47,10 @@ PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
 PREFIX locn:          <https://www.w3.org/ns/locn#> 
 PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
 
-select * where { 
+select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
     ?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amsterdamstraat 18, 2000 Antwerpen"@nl .
 	?adres_id <https://data.vlaanderen.be/ns/adres#isVerrijktMet> ?genid .
-    ?adres_id <http://www.w3.org/ns/prov#generatedAtTime> ?output .
+    ?adres_id <http://www.w3.org/ns/prov#generatedAtTime> ?generatedAtTime .
     ?adres_id <https://data.vlaanderen.be/ns/generiek#naamruimte> ?naamruimte .
     ?adres_id <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> ?lokaleIdentificator .
     ?adres_id <https://data.vlaanderen.be/ns/generiek#versieIdentificator> ?versieIdentificator .
@@ -65,11 +65,14 @@ select * where {
     ?genid_gemeente ?p ?gemeente .
     
     
+    
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftPostinfo> ?heeftPostinfo .
     ?adres_id <https://data.vlaanderen.be/ns/adres#Adres.status> ?adresstatus .  
     ?adres_id <https://data.vlaanderen.be/ns/adres#officieelToegekend> ?officieelToegekend .
     ?adres_id <https://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?heeftStraatnaam .
-} 
+    ?heeftStraatnaam <https://data.vlaanderen.be/ns/adres#Straatnaam> ?genid_straat .
+    ?genid_straat ?p ?straat .
+}  
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222468625-360e9328-624b-4e0e-83da-75c0ecfba618.png)
 
