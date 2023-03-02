@@ -39,17 +39,57 @@ Apache NiFi flow (NiFi_Flow.json) can be added by sliding in a Process Group:\
 
 # Sparql queries
 
-all info of addresses:
+all info of an address:
 
 ```
-PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
+PREFIX locn:          <https://www.w3.org/ns/locn#> 
+PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
+PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 
+select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
+    ?genid adres:volledigAdres "Amsterdamstraat 18, 2000 Antwerpen"@nl .
+	?adres_id adres:isVerrijktMet ?genid .
+    ?adres_id prov:generatedAtTime ?generatedAtTime .
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id adres:positie ?genid_positie .
+    
+    ?genid_positie locn:geometry ?genid_locatie .
+    ?genid_locatie geosparql:asGML ?locatie .
+    
+    ?adres_id adres:heeftGemeentenaam ?heeftGemeentenaam .
+    ?heeftGemeentenaam adres:Gemeentenaam ?genid_gemeente .
+    ?genid_gemeente ?p ?gemeente .
+    
+    
+    
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .  
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
+    ?heeftStraatnaam adres:Straatnaam ?genid_straat .
+    ?genid_straat ?p ?straat .
+} 
+```
+![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
+
+
+address:
+![image](https://user-images.githubusercontent.com/15192194/222463320-c93fbfcb-1bba-42b4-a45a-53e75bef6715.png)
+
+```
 select * where { 
-	adres:40000681 ?p ?o .
-} limit 100 
+	?genid <https://data.vlaanderen.be/ns/adres#volledigAdres> "Amerikalei 152, 2000 Antwerpen"@nl .
+   
+    
+}
 ```
 
-all info of parcels based on adres:
+all info of parcels based on addres:
 
 
 ```
