@@ -65,14 +65,14 @@ select * where {
 def adres(input):
     adres =   '''
     PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
-PREFIX locn:          <https://www.w3.org/ns/locn#> 
-PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
-PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
-PREFIX prov: <http://www.w3.org/ns/prov#>
+    PREFIX locn:          <https://www.w3.org/ns/locn#> 
+    PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
+    PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
 
-select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
+    select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?huisnummer ?locatie ?gemeente ?heeftPostinfo ?adresstatus ?officieelToegekend ?straat        where { 
     ?genid adres:volledigAdres "'''+ str(input) + '''"@nl .
-	?adres_id adres:isVerrijktMet ?genid .
+	OPTIONAL { ?adres_id adres:isVerrijktMet ?genid .
     ?adres_id prov:generatedAtTime ?generatedAtTime .
     ?adres_id generiek:naamruimte ?naamruimte .
     ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
@@ -95,7 +95,7 @@ select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?h
     ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
     ?heeftStraatnaam adres:Straatnaam ?genid_straat .
     ?genid_straat ?p ?straat .
-} '''
+} } limit 1 '''
     return adres
     
 #REST API
@@ -107,7 +107,7 @@ import logging
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'application/ld+json')
         self.end_headers()
 
     def do_GET(self):
@@ -118,7 +118,7 @@ class S(BaseHTTPRequestHandler):
         # connect to the GraphDB repository using the URL of the SPARQL endpoint
         sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
         adres_input = str(adres(input)).replace('%20', ' ')
-        print(adres_input)
+        #print(adres_input)
         # set the SPARQL query and response format
         sparql.setQuery(adres_input)
         sparql.setReturnFormat(RDF)
@@ -127,56 +127,54 @@ class S(BaseHTTPRequestHandler):
         data = results.splitlines()
         if (len(data)==1):
             adres_json = ''
+            output = 'Geen informatie in GraphDB'
         else :
             data = dict(zip(data[0].split(","), data[1].split(",")))
             adres_json = json.dumps(data, indent = 4) 
             id = data.get('lokaleIdentificator')
-        print(adres_json)
-        
-
-        input = id
-        # connect to the GraphDB repository using the URL of the SPARQL endpoint
-        sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
-        gebouw_input = gebouweenheid(input)
-        # set the SPARQL query and response format
-        sparql.setQuery(gebouw_input)
-        sparql.setReturnFormat(RDF)
-        results = str(sparql.query().convert().decode('latin-1'))
-        data = results.splitlines()
-        if (len(data)==1):
-            gebouweenheid_json = ''
-        else :
+            input = id
+            # connect to the GraphDB repository using the URL of the SPARQL endpoint
+            sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
+            gebouw_input = gebouweenheid(input)
+            # set the SPARQL query and response format
+            sparql.setQuery(gebouw_input)
+            sparql.setReturnFormat(RDF)
+            results = str(sparql.query().convert().decode('latin-1'))
+            data = results.splitlines()
+            if (len(data)==1):
+                gebouweenheid_json = ''
+            else :
+                print('DIT ZIJN DE RESULTATEN :', results)
+                data = dict(zip(data[0].split(","), data[1].split(",")))
+                gebouweenheid_json = json.dumps(data, indent = 4) 
+            print(gebouweenheid_json)
+            
+            sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
+            perceel_input = percelen(input)
+            # set the SPARQL query and response format
+            sparql.setQuery(perceel_input)
+            sparql.setReturnFormat(RDF)
+            results = str(sparql.query().convert().decode('latin-1'))
             print('DIT ZIJN DE RESULTATEN :', results)
-            data = dict(zip(data[0].split(","), data[1].split(",")))
-            gebouweenheid_json = json.dumps(data, indent = 4) 
-        print(gebouweenheid_json)
-        
-        sparql = SPARQLWrapper("http://localhost:7200/repositories/grar")
-        perceel_input = percelen(input)
-        # set the SPARQL query and response format
-        sparql.setQuery(perceel_input)
-        sparql.setReturnFormat(RDF)
-        results = str(sparql.query().convert().decode('latin-1'))
-        print('DIT ZIJN DE RESULTATEN :', results)
-        data = results.splitlines()
-        print('BESTAAT DIT?', len(data))
-        if (len(data)==1):
-            perceel_json = ''
-        else :
-            data = dict(zip(data[0].split(","), data[1].split(",")))
-            perceel_json = json.dumps(data, indent = 4) 
-        print(perceel_json)
-        
-        if (gebouweenheid_json == ''):
-            json_output = perceel_json
-        if (perceel_json == ''):
-            json_output = gebouweenheid_json
-        if (perceel_json == '' and gebouweenheid_json == ''):
-            json_output = 'Geen gekoppelde informatie van adres en perceel'
-        else:
-            json_output = perceel_json + ', ' + gebouweenheid_json
-        
-        output = adres_json + ', ' + json_output
+            data = results.splitlines()
+            print('BESTAAT DIT?', len(data))
+            if (len(data)==1):
+                perceel_json = ''
+            else :
+                data = dict(zip(data[0].split(","), data[1].split(",")))
+                perceel_json = json.dumps(data, indent = 4) 
+            print(perceel_json)
+            
+            if (gebouweenheid_json == ''):
+                json_output = perceel_json
+            if (perceel_json == ''):
+                json_output = gebouweenheid_json
+            if (perceel_json == '' and gebouweenheid_json == ''):
+                json_output = 'Geen gekoppelde informatie van adres en perceel'
+            else:
+                json_output = perceel_json + ', ' + gebouweenheid_json
+            
+            output = adres_json + ', ' + json_output
         
 
         self._set_response()
