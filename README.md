@@ -122,6 +122,20 @@ where {
     }}
 ```
 
+
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#volledigAdres> "Zelestraat 219, 9160 Lokeren"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#naamruimte> "https://data.vlaanderen.be/id/adres" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> "1239307" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#versieIdentificator> "2022-04-28T08:20:26+02:00" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#huisnummer> "219" .
+<https://data.vlaanderen.be/id/adres/1239307> <http://www.opengis.net/ont/geosparql#asGML> "<gml:Point srsName=\"http://www.opengis.net/def/crs/EPSG/0/31370\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>124491.27 19
+8750.89</gml:pos></gml:Point>"^^<http://www.opengis.net/ont/geosparql#gmlLiteral> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> "Lokeren"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#Straatnaam> "Zelestraat"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#officieelToegekend> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#heeftPostinfo> <https://data.vlaanderen.be/id/postinfo/9160> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#Adres.status> <https://data.vlaanderen.be/id/conceptscheme/adresstatus/inGebruik> .
+
 ![image](https://user-images.githubusercontent.com/15192194/222680930-d793be66-c489-4c67-b67e-b7bd92d1d54e.png)
 
 
