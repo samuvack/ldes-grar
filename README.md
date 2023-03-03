@@ -78,7 +78,7 @@ select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?h
 ![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
 
 ```
-   PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
+PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
 PREFIX locn:          <https://www.w3.org/ns/locn#>
 PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
 PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
@@ -120,8 +120,9 @@ where {
     ?heeftStraatnaam adres:Straatnaam ?genid_straat .
     ?genid_straat ?p ?straat .
     }}
-   ´´´
-  ![image](https://user-images.githubusercontent.com/15192194/222680930-d793be66-c489-4c67-b67e-b7bd92d1d54e.png)
+```
+
+![image](https://user-images.githubusercontent.com/15192194/222680930-d793be66-c489-4c67-b67e-b7bd92d1d54e.png)
 
 
 address:
