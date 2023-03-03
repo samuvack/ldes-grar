@@ -173,7 +173,35 @@ select * where {
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222114448-bfa79db4-b199-419f-82af-a09234ca1996.png)
 
+```
+PREFIX gebouwregister: <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#>
+PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+PREFIX perceel: <https://data.vlaanderen.be/id/perceel/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX ns: <https://data.vlaanderen.be/ns/generiek#>
 
+CONSTRUCT{
+    
+?perceel rdf:type ?type .
+?perceel prov:generatedAtTime ?generatedAtTime .
+?perceel ns:lokaleIdentificator ?lokaleIdentificator .
+?perceel ns:naamruimte ?naamruimte .
+?perceel ns:versieIdentificator ?versieIdentificator .
+
+
+
+
+} where {
+	?perceel gebouwregister:Adresseerbaar%20Object adres:2327687 .
+    OPTIONAL {	?perceel rdf:type ?type .
+      			?perceel prov:generatedAtTime ?generatedAtTime .
+   				?perceel ns:lokaleIdentificator ?lokaleIdentificator .
+            	?perceel ns:naamruimte ?naamruimte .
+    		    ?perceel ns:versieIdentificator ?versieIdentificator .}
+   	#    		?perceel gebouwenregister:Perceel%3Astatus ?status .}
+}
+```
 
 all info of building units:
 
