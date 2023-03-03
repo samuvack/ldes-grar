@@ -77,6 +77,52 @@ select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?h
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
 
+```
+   PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
+PREFIX locn:          <https://www.w3.org/ns/locn#>
+PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
+PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+CONSTRUCT {
+    ?adres_id adres:volledigAdres "Zelestraat 219, 9160 Lokeren"@nl.
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id  geosparql:asGML ?locatie .
+    ?adres_id adres:heeftGemeentenaam ?gemeente .
+    ?adres_id adres:Straatnaam ?straat .
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .
+
+}
+
+where {
+    ?genid adres:volledigAdres "Zelestraat 219, 9160 Lokeren"@nl .
+    ?adres_id adres:isVerrijktMet ?genid .
+    OPTIONAL { ?adres_id prov:generatedAtTime ?generatedAtTime .
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id adres:positie ?genid_positie .
+    ?genid_positie locn:geometry ?genid_locatie .
+    ?genid_locatie geosparql:asGML ?locatie .
+    ?adres_id adres:heeftGemeentenaam ?heeftGemeentenaam .
+    ?heeftGemeentenaam adres:Gemeentenaam ?genid_gemeente .
+    ?genid_gemeente ?p ?gemeente .
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
+    ?heeftStraatnaam adres:Straatnaam ?genid_straat .
+    ?genid_straat ?p ?straat .
+    }}
+   ´´´
+  ![image](https://user-images.githubusercontent.com/15192194/222680930-d793be66-c489-4c67-b67e-b7bd92d1d54e.png)
+
 
 address:
 ![image](https://user-images.githubusercontent.com/15192194/222463320-c93fbfcb-1bba-42b4-a45a-53e75bef6715.png)
