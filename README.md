@@ -77,6 +77,67 @@ select ?generatedAtTime ?naamruimte ?lokaleIdentificator ?versieIdentificator ?h
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222476055-e8e6ebae-c913-4750-b30f-9519eecefc82.png)
 
+```
+PREFIX generiek:      <https://data.vlaanderen.be/ns/generiek#>
+PREFIX locn:          <https://www.w3.org/ns/locn#>
+PREFIX geosparql:     <http://www.opengis.net/ont/geosparql#>
+PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+CONSTRUCT {
+    ?adres_id adres:volledigAdres "Zelestraat 219, 9160 Lokeren"@nl.
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id  geosparql:asGML ?locatie .
+    ?adres_id adres:heeftGemeentenaam ?gemeente .
+    ?adres_id adres:Straatnaam ?straat .
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .
+
+}
+
+where {
+    ?genid adres:volledigAdres "Zelestraat 219, 9160 Lokeren"@nl .
+    ?adres_id adres:isVerrijktMet ?genid .
+    OPTIONAL { ?adres_id prov:generatedAtTime ?generatedAtTime .
+    ?adres_id generiek:naamruimte ?naamruimte .
+    ?adres_id generiek:lokaleIdentificator ?lokaleIdentificator .
+    ?adres_id generiek:versieIdentificator ?versieIdentificator .
+    ?adres_id adres:huisnummer ?huisnummer .
+    ?adres_id adres:positie ?genid_positie .
+    ?genid_positie locn:geometry ?genid_locatie .
+    ?genid_locatie geosparql:asGML ?locatie .
+    ?adres_id adres:heeftGemeentenaam ?heeftGemeentenaam .
+    ?heeftGemeentenaam adres:Gemeentenaam ?genid_gemeente .
+    ?genid_gemeente ?p ?gemeente .
+    ?adres_id adres:heeftPostinfo ?heeftPostinfo .
+    ?adres_id adres:Adres.status ?adresstatus .
+    ?adres_id adres:officieelToegekend ?officieelToegekend .
+    ?adres_id adres:heeftStraatnaam ?heeftStraatnaam .
+    ?heeftStraatnaam adres:Straatnaam ?genid_straat .
+    ?genid_straat ?p ?straat .
+    }}
+```
+
+
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#volledigAdres> "Zelestraat 219, 9160 Lokeren"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#naamruimte> "https://data.vlaanderen.be/id/adres" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#lokaleIdentificator> "1239307" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/generiek#versieIdentificator> "2022-04-28T08:20:26+02:00" .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#huisnummer> "219" .
+<https://data.vlaanderen.be/id/adres/1239307> <http://www.opengis.net/ont/geosparql#asGML> "<gml:Point srsName=\"http://www.opengis.net/def/crs/EPSG/0/31370\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>124491.27 19
+8750.89</gml:pos></gml:Point>"^^<http://www.opengis.net/ont/geosparql#gmlLiteral> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#heeftGemeentenaam> "Lokeren"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#Straatnaam> "Zelestraat"@nl .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#officieelToegekend> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#heeftPostinfo> <https://data.vlaanderen.be/id/postinfo/9160> .
+<https://data.vlaanderen.be/id/adres/1239307> <https://data.vlaanderen.be/ns/adres#Adres.status> <https://data.vlaanderen.be/id/conceptscheme/adresstatus/inGebruik> .
+
+![image](https://user-images.githubusercontent.com/15192194/222680930-d793be66-c489-4c67-b67e-b7bd92d1d54e.png)
+
 
 address:
 ![image](https://user-images.githubusercontent.com/15192194/222463320-c93fbfcb-1bba-42b4-a45a-53e75bef6715.png)
@@ -112,7 +173,35 @@ select * where {
 ```
 ![image](https://user-images.githubusercontent.com/15192194/222114448-bfa79db4-b199-419f-82af-a09234ca1996.png)
 
+```
+PREFIX gebouwregister: <https://basisregisters.vlaanderen.be/implementatiemodel/gebouwenregister#>
+PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+PREFIX perceel: <https://data.vlaanderen.be/id/perceel/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX ns: <https://data.vlaanderen.be/ns/generiek#>
 
+CONSTRUCT{
+    
+?perceel rdf:type ?type .
+?perceel prov:generatedAtTime ?generatedAtTime .
+?perceel ns:lokaleIdentificator ?lokaleIdentificator .
+?perceel ns:naamruimte ?naamruimte .
+?perceel ns:versieIdentificator ?versieIdentificator .
+
+
+
+
+} where {
+	?perceel gebouwregister:Adresseerbaar%20Object adres:2327687 .
+    OPTIONAL {	?perceel rdf:type ?type .
+      			?perceel prov:generatedAtTime ?generatedAtTime .
+   				?perceel ns:lokaleIdentificator ?lokaleIdentificator .
+            	?perceel ns:naamruimte ?naamruimte .
+    		    ?perceel ns:versieIdentificator ?versieIdentificator .}
+   	#    		?perceel gebouwenregister:Perceel%3Astatus ?status .}
+}
+```
 
 all info of building units:
 
@@ -145,4 +234,42 @@ select * where {
 output:
 ![image](https://user-images.githubusercontent.com/15192194/222118282-a87550be-1dfc-463a-bcc6-a393d2c3af79.png)
 
+```
+PREFIX adres: <https://data.vlaanderen.be/id/adres/>
+PREFIX gebouw: <https://data.vlaanderen.be/id/?gebouweenheid/>
+PREFIX gebouweenheid: <https://data.vlaanderen.be/ns/gebouw#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+
+construct {
+?gebouweenheid prov:generatedAtTime ?generatedAtTime .
+?gebouweenheid rdf:type ?type .
+?gebouweenheid gebouweenheid:Gebouweenheid.geometrie ?geometrie .
+?gebouweenheid gebouweenheid:Gebouweenheid.status ?status .
+?gebouweenheid gebouweenheid:functie ?functie .
+?gebouweenheid generiek:lokaleIdentificator ?lokaleIdentificator .
+?gebouweenheid generiek:naamruimte ?naamruimte .
+?gebouweenheid generiek:versieIdentificator ?versieIdentificator .  
+    
+    
+    
+    
+} where { 
+	?gebouweenheid <https://data.vlaanderen.be/ns/gebouw#Gebouweenheid.adres> <https://data.vlaanderen.be/id/adres/1864311> .
+
+    OPTIONAL{
+    ?gebouweenheid prov:generatedAtTime ?generatedAtTime .
+	?gebouweenheid rdf:type ?type .
+	?gebouweenheid gebouweenheid:Gebouweenheid.geometrie ?geometrie .
+	?gebouweenheid gebouweenheid:Gebouweenheid.status ?status .
+	?gebouweenheid gebouweenheid:functie ?functie .
+	?gebouweenheid generiek:lokaleIdentificator ?lokaleIdentificator .
+	?gebouweenheid generiek:naamruimte ?naamruimte .
+	?gebouweenheid generiek:versieIdentificator ?versieIdentificator .  
+
+}
+}
+```
 
