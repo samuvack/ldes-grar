@@ -20,7 +20,7 @@ networks:
 
 services:
   nifi:
-    image: ghcr.io/informatievlaanderen/ldes-workbench-nifi:20230214T123440 #20221109T103745
+    image: ghcr.io/informatievlaanderen/ldes-workbench-nifi:latest
     container_name: nifi-graph
     restart: unless-stopped
     ports:
